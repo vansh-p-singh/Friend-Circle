@@ -15,19 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.tooling.preview.Preview
 import com.altrodav.friendcircle.ui.theme.FriendCircleTheme
-import coil.compose.AsyncImage
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             FriendCircleTheme {
-                Box(modifier= Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
-                    AsyncImage(
-                        model = "https://www.pngitem.com/pimgs/m/13-132003_android-robot-sideview-character-android-tutorial-hd-png.png",
-                        contentDescription = "Test Image Loading"
-                    )
-                }
+                WelcomeScreen()
             }
         }
     }
