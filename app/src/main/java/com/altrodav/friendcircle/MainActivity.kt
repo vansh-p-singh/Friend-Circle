@@ -21,7 +21,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FriendCircleTheme {
-                WelcomeScreen()
+//                WelcomeScreen()
+                ProfileScreen();
             }
         }
     }
