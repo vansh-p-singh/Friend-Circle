@@ -62,10 +62,7 @@ fun WelcomeScreen(){
 // Resuable Primary Button
 @Composable
 fun PrimaryButton(text:String, onClick: () -> Unit, modifier: Modifier = Modifier){
-    Button(modifier=modifier, onClick = onClick, colors = ButtonDefaults.buttonColors(
-        contentColor = MaterialTheme.colorScheme.onPrimary,
-        containerColor = MaterialTheme.colorScheme.primary
-    )) {
+    Button(modifier=modifier, onClick = onClick) {
         Text(text, style = MaterialTheme.typography.titleMedium)
     }
     }
