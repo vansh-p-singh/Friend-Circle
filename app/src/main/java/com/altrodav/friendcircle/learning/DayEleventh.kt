@@ -85,7 +85,7 @@ fun ScreenMain(){
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showForm = !showForm }) {
+            FloatingActionButton(onClick = { showForm = !showForm },containerColor = MaterialTheme.colorScheme.secondary, contentColor = MaterialTheme.colorScheme.onSecondary) {
                 Icon(Icons.Filled.Add, contentDescription = "Add")
             }
         }
