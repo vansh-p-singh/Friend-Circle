@@ -25,10 +25,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.altrodav.friendcircle.ui.theme.FriendCircleTheme
 
 @Composable
-fun WelcomeScreen(){
+fun WelcomeScreen(navController: NavController){
     Column(
         modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colorScheme.background).padding(25.dp), verticalArrangement = Arrangement.spacedBy(25.dp, alignment = Alignment.CenterVertically), horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -68,10 +69,10 @@ fun PrimaryButton(text:String, onClick: () -> Unit, modifier: Modifier = Modifie
     }
 
 
-@Preview(showSystemUi = true)
-@Composable
-fun WelcomeScreenPreview(){
-    FriendCircleTheme {
-        WelcomeScreen()
-    }
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//fun WelcomeScreenPreview(){
+//    FriendCircleTheme {
+//        WelcomeScreen()
+//    }
+//}

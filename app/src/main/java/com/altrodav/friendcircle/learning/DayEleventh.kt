@@ -45,12 +45,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.altrodav.friendcircle.ui.theme.FriendCircleTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenMain(){
+fun ScreenMainActivity(navController: NavController){
     var name by remember {
         mutableStateOf("")
     }
@@ -66,32 +67,8 @@ fun ScreenMain(){
     var activitiesList = remember {  mutableStateListOf<EventActivity>(
         EventActivity("Open Cooking","12:00PM","Sector 17, Chandigarh")
     )}
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = "Friend Circle")
-                },
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Navigation Button")
-                    }
-                },
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Filled.Person, contentDescription = "Profile")
-                    }
-                }
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { showForm = !showForm },containerColor = MaterialTheme.colorScheme.secondary, contentColor = MaterialTheme.colorScheme.onSecondary) {
-                Icon(Icons.Filled.Add, contentDescription = "Add")
-            }
-        }
-    ) {
-        innerPadding->
-        LazyColumn(modifier = Modifier.padding(innerPadding).fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
+
+        LazyColumn(modifier = Modifier.padding(5.dp).fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
             items(activitiesList){
                 item->ActivityCard(item.name,item.time,item.location)
             }
@@ -109,15 +86,8 @@ fun ScreenMain(){
             }
         }
     }
-}
 
-@Preview(showSystemUi = true)
-@Composable
-fun PreviewButtons(){
-    FriendCircleTheme() {
-        ScreenMain();
-    }
-}
+
 
 @Composable
 fun ActivityCard(name:String,time:String,location:String){
