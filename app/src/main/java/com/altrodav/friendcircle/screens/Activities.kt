@@ -1,7 +1,6 @@
-package com.altrodav.friendcircle.learning
+package com.altrodav.friendcircle.screens
 
 import android.app.Activity
-import android.text.Layout
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,24 +15,15 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -42,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -52,6 +41,7 @@ import com.altrodav.friendcircle.ui.theme.FriendCircleTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenMainActivity(navController: NavController){
+
     var name by remember {
         mutableStateOf("")
     }
@@ -64,10 +54,11 @@ fun ScreenMainActivity(navController: NavController){
     var showForm by remember {
         mutableStateOf(false)
     }
+
     var activitiesList = remember {  mutableStateListOf<EventActivity>(
         EventActivity("Open Cooking","12:00PM","Sector 17, Chandigarh")
     )}
-
+        Box(modifier = Modifier.fillMaxSize()){
         LazyColumn(modifier = Modifier.padding(5.dp).fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally){
             items(activitiesList){
                 item->ActivityCard(item.name,item.time,item.location)
@@ -85,10 +76,20 @@ fun ScreenMainActivity(navController: NavController){
                 }
             }
         }
+            FloatingActionButton(onClick = { showForm = !showForm }, modifier = Modifier.align(Alignment.BottomEnd)) {
+                Icon(Icons.Filled.Add, contentDescription = "Add")
+            }
+        }
     }
 
 
-
+@Preview(showSystemUi = true)
+@Composable
+fun PreviewScreen(){
+    FriendCircleTheme {
+        ScreenMainActivity(navController = NavController(Activity()))
+    }
+}
 @Composable
 fun ActivityCard(name:String,time:String,location:String){
     ElevatedCard(modifier = Modifier.padding(10.dp).fillMaxWidth()) {

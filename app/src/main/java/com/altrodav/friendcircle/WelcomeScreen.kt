@@ -50,7 +50,7 @@ fun WelcomeScreen(navController: NavController){
             )
         }
         //Logo
-        Image(painter = painterResource(R.drawable.logo), contentDescription = "Logo", modifier = Modifier.size(150.dp))
+        Image(painter = painterResource(R.drawable.new_logo), contentDescription = "Logo", modifier = Modifier.size(150.dp))
 
         // Sub-Heading
         Text(text = "We help people build circles of friends and meet up around real activities.", color = MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
