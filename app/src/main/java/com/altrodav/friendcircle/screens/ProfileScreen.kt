@@ -19,30 +19,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.altrodav.friendcircle.PrimaryButton
 import com.altrodav.friendcircle.components.ProfileHeader
 import com.altrodav.friendcircle.ui.theme.FriendCircleTheme
+import com.altrodav.friendcircle.viewmodels.ProfileViewModel
 
 @Composable
 fun ProfileScreen(navController: NavController){
-    var bio by remember {
-        mutableStateOf("21\t:Software Engineer\nLoves Reading & Cooking")
-    }
-    var bioInput by remember {
-        mutableStateOf("21\t:Software Engineer\nLoves Reading & Cooking")
-    }
+    val viewModel: ProfileViewModel=viewModel();
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle();
     Column(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), horizontalAlignment = Alignment.CenterHorizontally){
-        ProfileHeader(name = "Vansh Pratap", bio = bio)
+            ProfileHeader(name = uiState.name, bio = uiState.bio)
         Column {
-            OutlinedTextField(value = bioInput, onValueChange = {
-                bioInput=it
+            OutlinedTextField(value = viewModel.bioInput, onValueChange = {
+                viewModel.updateBioInput(it)
             }, label = {
                 Text("Bio")
             }, modifier = Modifier.padding(5.dp).fillMaxWidth().defaultMinSize(minHeight = 100.dp))
             PrimaryButton("Update Bio", onClick = {
-                bio=bioInput
+                viewModel.updateBio()
             }, modifier = Modifier.padding(5.dp).fillMaxWidth())
         }
     }

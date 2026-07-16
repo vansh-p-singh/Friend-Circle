@@ -30,6 +30,7 @@ import com.altrodav.friendcircle.WelcomeScreen
 import com.altrodav.friendcircle.screens.Circles
 import com.altrodav.friendcircle.screens.Home
 import com.altrodav.friendcircle.screens.ScreenMainActivity
+import com.altrodav.friendcircle.viewmodels.ProfileViewModel
 
 object Routes{
     const val HOME = "home";
