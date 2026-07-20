@@ -7,10 +7,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 
 class ProfileViewModel: ViewModel() {
@@ -21,11 +24,26 @@ class ProfileViewModel: ViewModel() {
     var bioInput by mutableStateOf("21\t:Software Engineer\nLoves Reading & Cooking")
         private set
     fun updateBio(){
-        _uiState.update {
-            it.copy(
-                bio=bioInput
-            )
+        viewModelScope.launch {
+            try {
+                _uiState.update {
+                    it.copy(isLoading = true)
+                }
+                delay(1500)
+                if (bioInput.isBlank()) {
+                    throw Exception("Bio can't be empty")
+                }
+                _uiState.update {
+                    it.copy(isLoading = false, bio = bioInput)
+                }
+            }
+            catch (e:Exception){
+                _uiState.update {
+                    it.copy(isLoading = false, error = e.message)
+                }
+            }
         }
+
     }
     fun updateBioInput(newBioInput:String){
         bioInput=newBioInput

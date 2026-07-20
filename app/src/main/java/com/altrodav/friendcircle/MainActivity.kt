@@ -24,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.modifier.modifierLocalOf
 import androidx.compose.ui.tooling.preview.Preview
 import com.altrodav.friendcircle.components.NavApp
+import com.altrodav.friendcircle.learning.DBTest
+import com.altrodav.friendcircle.learning.DBTest2
 import com.altrodav.friendcircle.ui.theme.FriendCircleTheme
 class MainActivity : ComponentActivity() {
 
@@ -33,7 +35,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             FriendCircleTheme {
                 NavApp();
+
             }
         }
+
     }
 }

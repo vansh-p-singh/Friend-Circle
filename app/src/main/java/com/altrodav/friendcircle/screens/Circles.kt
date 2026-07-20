@@ -16,25 +16,36 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.altrodav.friendcircle.db.FriendDatabase
 import com.altrodav.friendcircle.ui.theme.FriendCircleTheme
 
 @Composable
 fun Circles(navController: NavController){
+    val context = LocalContext.current
+    val db = remember { FriendDatabase.getDatabase(context) }
+    val dao = remember { db.friendDao() }
+
+    val friends by dao.getAllFriends()
+        .collectAsState(initial = emptyList())
     LazyColumn(
         modifier = Modifier.padding(5.dp), verticalArrangement = Arrangement.spacedBy(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(friendsList){
+        items(friends){
                 item->
             FriendCard(item.name,item.img,item.username)
         }
@@ -55,24 +66,3 @@ fun FriendCard(name: String, img: String, username: String){
         }
     }
 }
-
-data class Friend(val name:String,val img:String,val username:String);
-
-val friendsList=listOf<Friend>(
-    Friend("Reeta", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","reetaqueen123"),
-    Friend("Seeta", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","seettaaaaaa"),
-    Friend("Geeta", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","heyItsmeGeetu123"),
-    Friend("Roshni", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","lightindark"),
-    Friend("Rashmi", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","rashmee_32"),
-    Friend("Aparna Thakur", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","thakurani23"),
-    Friend("Drishti Paras", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","dishu_786"),
-    Friend("Sakshi Rana", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","sakshirana123"),
-    Friend("Ankita", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","heyyankuuuuu"),
-    Friend("Azra Khan", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","queen_azru"),
-    Friend("Angel Priya", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","priyuu_angel"),
-    Friend("Mani Attri", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","mani.attri.34"),
-    Friend("Harnoor Kaur", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","harnoor.987"),
-    Friend("Jasmine Kaur", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","jass_kaur.4"),
-    Friend("Amrita Saini", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","its.me.amrita"),
-    Friend("Divya Kaushal", img = "https://static.vecteezy.com/system/resources/previews/001/609/739/non_2x/indian-girl-face-avatar-cartoon-free-vector.jpg","diva.divya")
-)
